@@ -29,7 +29,11 @@ class MealCategoryController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
-        $grid->column('time_slot_id', __('Time slot id'));
+        $grid->column('timeSlot.name', __('Time slot'))
+        ->display(function ($val) {
+            return '<a href="' . admin_url('time-slots/' . $this->time_slot_id) . '"><strong> '. $val .'</strong></a>';
+        });
+
         $grid->column('status', __('Status'))
         ->display(function($val) {
             if ($val == 1) {
@@ -88,7 +92,7 @@ class MealCategoryController extends AdminController
 
         $form->select('time_slot_id', __('Time slot'))
         ->options(function () {
-            return TimeSlot::pluck("name", "id");
+            return TimeSlot::where('status', '1')->pluck("name", "id");
         })
         ->rules("required");
         

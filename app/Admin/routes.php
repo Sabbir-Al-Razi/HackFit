@@ -16,5 +16,6 @@ Route::group([
     $router->resource('meal-categories', MealCategoryController::class);
     $router->resource('units', UnitController::class);
     $router->resource('food-items', FoodItemController::class);
-
+    $router->resource('meals', MealController::class);
+    $router->resource('user-meals', UserMealController::class);
 });
