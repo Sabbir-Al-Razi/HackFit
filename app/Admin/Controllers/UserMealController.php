@@ -41,7 +41,7 @@ class UserMealController extends AdminController
         ->display(function ($val) use ($meals) {
             $html = null;
             foreach ($val as $key => $value) {
-                $html .=  isset($meals[$value]) ? '<a href="' . admin_url('food-items/' . $this->$value) . '"><strong> '. $meals[$value] . '<br>' .'</strong></a>' : '';
+                $html .=  isset($meals[$value]) ? '<a href="' . admin_url('meals/' . $value) . '"><strong> '. $meals[$value] . '<br>' .'</strong></a>' : '';
             }
             return $html;
         });
