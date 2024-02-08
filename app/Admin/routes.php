@@ -18,4 +18,5 @@ Route::group([
     $router->resource('food-items', FoodItemController::class);
     $router->resource('meals', MealController::class);
     $router->resource('user-meals', UserMealController::class);
+    $router->resource('auth/users', CustomUserController::class);
 });
