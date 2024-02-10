@@ -23,8 +23,8 @@ class PlanOrderController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header(trans('admin.index'))
-            ->description(trans('admin.description'))
+            ->header(trans('Plan Order'))
+            ->description(trans('PO...'))
             ->body($this->grid());
     }
 
@@ -38,8 +38,8 @@ class PlanOrderController extends Controller
     public function show($id, Content $content)
     {
         return $content
-            ->header(trans('admin.detail'))
-            ->description(trans('admin.description'))
+            ->header(trans('Plan Order'))
+            ->description(trans('PO...'))
             ->body($this->detail($id));
     }
 

@@ -2,7 +2,6 @@
 
 use Encore\Admin\Facades\Admin;
 
-
 /**
  * Laravel-admin - admin builder based on Laravel.
  * @author z-song <https://github.com/z-song>
@@ -24,10 +23,3 @@ use Encore\Admin\Facades\Admin;
 Encore\Admin\Form::forget(['map', 'editor']);
 
 
-Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) {
-
-    $navbar->left('html...');
-
-    $navbar->right('html...');
-
-});

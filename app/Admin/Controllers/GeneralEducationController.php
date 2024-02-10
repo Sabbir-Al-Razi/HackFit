@@ -23,8 +23,8 @@ class GeneralEducationController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header(trans('admin.index'))
-            ->description(trans('admin.description'))
+            ->header(trans('General education'))
+            ->description(trans('GD.....'))
             ->body($this->grid());
     }
 
@@ -38,8 +38,8 @@ class GeneralEducationController extends Controller
     public function show($id, Content $content)
     {
         return $content
-            ->header(trans('admin.detail'))
-            ->description(trans('admin.description'))
+            ->header(trans('General education'))
+            ->description(trans('GD.....'))
             ->body($this->detail($id));
     }
 
@@ -87,12 +87,25 @@ class GeneralEducationController extends Controller
         $grid->details('details');
         $grid->home_care('home_care');
         $grid->medicare('medicare');
-        $grid->image('image');
-        $grid->status('status');
-        $grid->created_at('created_at');
-        $grid->update_at('update_at');
-        $grid->created_at(trans('admin.created_at'));
-        $grid->updated_at(trans('admin.updated_at'));
+        $grid->column('status', __('Status'))
+            ->display(function($val) {
+                if ($val == 1) {
+                    return '<span class="label label-success">Active</span>';
+                } else {
+                    return '<span class="label label-danger">Inactive</span>';
+                }
+            });
+        $grid->column('image', __('Image'))->image(asset('/storage'), 50, 50);
+
+        $grid->column('created_at', __('Created at'))
+        ->display(function($val) {
+            return !empty($val) ? date('Y-m-d H:i:s', strtotime($val)) : null;
+        });
+
+        $grid->column('updated_at', __('Updated at'))
+        ->display(function($val) {
+            return !empty($val) ? date('Y-m-d H:i:s', strtotime($val)) : null;
+        });
 
         return $grid;
     }
@@ -113,12 +126,10 @@ class GeneralEducationController extends Controller
         $show->details('details');
         $show->home_care('home_care');
         $show->medicare('medicare');
-        $show->image('image');
+        $show->image()->image(asset('storage'). '/');
         $show->status('status');
-        $show->created_at('created_at');
-        $show->update_at('update_at');
-        $show->created_at(trans('admin.created_at'));
-        $show->updated_at(trans('admin.updated_at'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
 
         return $show;
     }
@@ -132,13 +143,13 @@ class GeneralEducationController extends Controller
     {
         $form = new Form(new GeneralEducation);
 
-        // $form->display('ID');
-        $form->text('title', 'title');
-        $form->text('overview', 'overview');
+        $form->text('title', 'title')->rules("required");
+        $form->text('overview', 'overview')->rules("required");
         $form->text('details', 'details');
         $form->text('home_care', __('Home Care'));
         $form->text('medicare', 'medicare');
-        $form->file('image', 'image');
+        $dir = public_path('/uploads/GD/');
+        $form->image('image', __('Image'));
         $form->switch('status', __('Status'))->default(1);
 
         return $form;
