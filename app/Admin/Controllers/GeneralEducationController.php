@@ -81,31 +81,36 @@ class GeneralEducationController extends Controller
     {
         $grid = new Grid(new GeneralEducation);
 
-        // $grid->id('ID');
         $grid->title('title');
-        $grid->overview('overview');
-        $grid->details('details');
-        $grid->home_care('home_care');
-        $grid->medicare('medicare');
-        $grid->column('status', __('Status'))
-            ->display(function($val) {
-                if ($val == 1) {
-                    return '<span class="label label-success">Active</span>';
-                } else {
-                    return '<span class="label label-danger">Inactive</span>';
-                }
-            });
+        $grid->overview('overview')->display(function ($overview) {
+            return \Illuminate\Support\Str::limit($overview, 50);
+        });
+        $grid->details('details')->display(function ($details) {
+            return \Illuminate\Support\Str::limit($details, 50);
+        });
+        $grid->home_care('home_care')->display(function ($homeCare) {
+            return \Illuminate\Support\Str::limit($homeCare, 50);
+        });
+        $grid->medicare('medicare')->display(function ($medicare) {
+            return \Illuminate\Support\Str::limit($medicare, 50);
+        });
+        $grid->column('status', __('Status'))->display(function($val) {
+            if ($val == 1) {
+                return '<span class="label label-success">Active</span>';
+            } else {
+                return '<span class="label label-danger">Inactive</span>';
+            }
+        });
         $grid->column('image', __('Image'))->image(asset('/storage'), 50, 50);
 
-        $grid->column('created_at', __('Created at'))
-        ->display(function($val) {
+        $grid->column('created_at', __('Created at'))->display(function($val) {
             return !empty($val) ? date('Y-m-d H:i:s', strtotime($val)) : null;
         });
 
-        $grid->column('updated_at', __('Updated at'))
-        ->display(function($val) {
+        $grid->column('updated_at', __('Updated at'))->display(function($val) {
             return !empty($val) ? date('Y-m-d H:i:s', strtotime($val)) : null;
         });
+
 
         return $grid;
     }
@@ -126,7 +131,7 @@ class GeneralEducationController extends Controller
         $show->details('details');
         $show->home_care('home_care');
         $show->medicare('medicare');
-        $show->image()->image(asset('storage'). '/');
+        $show->image()->image(asset('uploads/GD'). '/');
         $show->status('status');
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -144,10 +149,10 @@ class GeneralEducationController extends Controller
         $form = new Form(new GeneralEducation);
 
         $form->text('title', 'title')->rules("required");
-        $form->text('overview', 'overview')->rules("required");
-        $form->text('details', 'details');
-        $form->text('home_care', __('Home Care'));
-        $form->text('medicare', 'medicare');
+        $form->textarea('overview', 'overview')->rules("required");
+        $form->textarea('details', 'details');
+        $form->textarea('home_care', __('Home Care'));
+        $form->textarea('medicare', 'medicare');
         $dir = public_path('/uploads/GD/');
         $form->image('image', __('Image'));
         $form->switch('status', __('Status'))->default(1);
