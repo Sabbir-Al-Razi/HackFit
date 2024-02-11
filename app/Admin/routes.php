@@ -13,6 +13,7 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
     $router->get('google-fit-initiate', 'HomeController@googleFitInitiate')->name('googleFitInitiate');
+    $router->resource('bmi-calculator', BmiCalculatorController::class);
     $router->resource('time-slots', TimeSlotController::class);
     $router->resource('meal-categories', MealCategoryController::class);
     $router->resource('units', UnitController::class);
