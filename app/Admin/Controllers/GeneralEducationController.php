@@ -9,6 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Intervention\Image\Facades\Image;
 
 class GeneralEducationController extends Controller
 {
@@ -131,7 +132,7 @@ class GeneralEducationController extends Controller
         $show->details('details');
         $show->home_care('home_care');
         $show->medicare('medicare');
-        $show->image()->image(asset('uploads/GD'). '/');
+        $show->image()->image(asset('storage'). '/');
         $show->status('status');
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -153,8 +154,9 @@ class GeneralEducationController extends Controller
         $form->textarea('details', 'details');
         $form->textarea('home_care', __('Home Care'));
         $form->textarea('medicare', 'medicare');
-        $dir = public_path('/uploads/GD/');
-        $form->image('image', __('Image'));
+
+        $form->image('image', 'Image')->move('uploads/GD')->uniqueName();
+
         $form->switch('status', __('Status'))->default(1);
 
         return $form;
