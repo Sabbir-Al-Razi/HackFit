@@ -8,7 +8,7 @@ use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
 use App\Models\GeneralEducation;
-use Illuminate\Support\Facades\Http;
+
 
 class HomeController extends Controller
 {
@@ -20,23 +20,14 @@ class HomeController extends Controller
             // ->row(Dashboard::title())
             ->row(function (Row $row) {
 
-                $row->column(4, function (Column $column) {
-                    $response = Http::withHeaders([
-                        'X-Api-Key' => 'H5eCGlzOo5lDB73CuEPVMA==5I3Zfj4xFhCVysz9'
-                    ])->get('https://api.api-ninjas.com/v1/quotes', [
-                        'category' => 'fitness'
-                    ]);
+                $generalEducations = GeneralEducation::latest('created_at')->limit(6)->get();
 
-                    $quote = "";
-                    if ($response->successful()) {
-                        $data = $response->json();
-                        $quote = $data[0]['quote'];
-                    }
+                $row->column(6, function (Column $column) use ($generalEducations) {
+                    $column->append(view('admin.partials.general_educations_table', compact('generalEducations')));
 
-                    $column->append($quote);
                 });
 
-                $row->column(8, function (Column $column) {
+                $row->column(6, function (Column $column) {
                     $column->append(Dashboard::extensions());
                 });
 
