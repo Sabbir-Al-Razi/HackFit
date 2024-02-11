@@ -110,7 +110,7 @@ class FoodItemController extends AdminController
 
         $form->select('unit_id', __('Unit'))
         ->options(function () {
-            return Unit::pluck("name", "id");
+            return Unit::where('status', '1')->pluck("name", "id");
         })
         ->rules("required");
 
@@ -124,12 +124,7 @@ class FoodItemController extends AdminController
         $form->text('remarks', __('Remarks'));
 
         $dir = public_path('/uploads/food_items/');
-        // $form->image('image', __('Image'))->move(storage_path('app/public/images/food_items'));
         $form->image('image', __('Image'));
-
-        // $thumbDir = public_path('\uploads\food_items\thumbnails');
-        // $thumbsVal = $form->image('image', __('image'))
-        // $form->hidden("thumbnail")->value($thumbsVal);
 
         $form->hidden("created_by")->value(auth()->user()->id);
 

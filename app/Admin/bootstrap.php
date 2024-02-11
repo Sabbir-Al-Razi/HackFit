@@ -19,3 +19,7 @@
  */
 
 Encore\Admin\Form::forget(['map', 'editor']);
+
+use Encore\Admin\Facades\Admin;
+
+app('view')->prependNamespace('admin', resource_path('views/admin/views'));
