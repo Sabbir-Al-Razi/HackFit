@@ -21,4 +21,6 @@ Route::group([
     $router->resource('meals', MealController::class);
     $router->resource('user-meals', UserMealController::class);
     $router->resource('auth/users', CustomUserController::class);
+    $router->resource('gd', GeneralEducationController::class);
+    $router->resource('plan-order', PlanOrderController::class);
 });
