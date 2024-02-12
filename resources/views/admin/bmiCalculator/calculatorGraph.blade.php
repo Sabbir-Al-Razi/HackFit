@@ -1,4 +1,4 @@
-<div class="box box-info">
+<div class="box box-info" style="min-height: 410px;">
     <div class="box-header with-border">
         <h3 class="box-title">Result</h3>
 
@@ -57,23 +57,23 @@
                                 </g>
 
                                 <line x1="140" y1="140" x2="65" y2="140" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)">
-                                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 140 140" to="42.6 140 140" dur="1s" fill="freeze" repeatCount="1"/>
+                                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 140 140" to="{{$bmi>0?$bmi_meter:0}} 140 140" dur="1s" fill="freeze" repeatCount="1"/>
                                 </line>
 
-                                <text x="67" y="120" style="font-size: 30px;font-weight:bold;color:#000;">BMI = 20.1</text>
+                                <text x="67" y="120" style="font-size: 27px;font-weight:bold;color:#000;">BMI = {{$bmi>0?$bmi:'0.00'}}</text>
                             </g>
                         </svg>
                     </div>
 
                     <div class="col-xs-12">
                         <div class="col-sm-offset-1 col-sm-10">
-                            <h4 style="font-weight: bold;margin-bottom: 5px;">BMI = 13.9 kg/m<sup>2</sup></h4>
-                            <ul style="margin-left:8px;padding-left:8px;font-size: 15px;">
-                                <li>Healthy BMI range: 18.5 kg/m<sup>2</sup> - 25 kg/m<sup>2</sup></li>
-                                <li>Healthy weight for the height: 26.6 kg - 36 kg</li>
-                                <li>BMI Prime: 0.56</li>
-                                <li>Ponderal Index: 11.6 kg/m<sup>3</sup></li>
-                                <li style="color: red;">Gain 6.6 kg to reach a BMI of 18.5 kg/m<sup>2</sup>.</li>
+                            <h4 style="font-weight: bold;margin-bottom: 5px;">BMI = {{$bmi>0?$bmi:'0.00'}} kg/m<sup>2</sup> @if($bmi>0)(<span style="color: {{$class=='Normal'?'green':'red'}}">{{$class}}</span>)@endif</h4>
+                            <ul style="margin-left:8px;padding-left:8px;">
+                                <li>Healthy BMI range: @if($bmi>0)18.5 kg/m<sup>2</sup> - 25 kg/m<sup>2</sup> @endif</li>
+                                <li>Healthy weight for the height: @if($bmi>0){{$healthy_weight_min}} kg - {{$healthy_weight_max}} kg @endif</li>
+                                <li>BMI Prime: @if($bmi>0){{$bmi_prime}} @endif</li>
+                                <li>Ponderal Index: @if($bmi>0){{$ponderal_index}} kg/m<sup>3</sup> @endif</li>
+                                @if($bmi>0 && ($lose_weight>0 || $gain_weight>0))<li style="color: red;">@if($lose_weight>0)Lose {{$lose_weight}} kg to reach a BMI of 25 kg/m<sup>2</sup>.@elseif($gain_weight>0)Gain {{$gain_weight}} kg to reach a BMI of 18.5 kg/m<sup>2</sup>. @endif</li>@endif
                             </ul>
                         </div>
                     </div>
