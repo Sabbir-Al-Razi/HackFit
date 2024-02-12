@@ -1,4 +1,9 @@
-<!-- notifications.blade.php -->
+<style>
+    .modal-backdrop {
+        position: relative !important;
+    }
+</style>
+
 <li class="dropdown notifications-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <i class="fa fa-bell-o"></i>
