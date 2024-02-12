@@ -50,6 +50,12 @@ class HomeController extends Controller
             $this->getGoogleFitData($googleToken);
 
             $content->row(function (Row $row) {
+                $row->column(12, function (Column $column) {
+                    $column->append(view('admin.dashboard.smallBoxes', $this->fitData));
+                });
+            });
+
+            $content->row(function (Row $row) {
 
                 $row->column(12, function (Column $column) {
                     $column->append('<div class="box"><p>'.$this->quotes().'</p></div>');
@@ -287,6 +293,12 @@ class HomeController extends Controller
         $data['speeds_max'] = $speeds_max;
         $data['speeds_min'] = $speeds_min;
 
+        $lastIndex = count($days)-1;
+        $data['today_steps'] = $steps[$lastIndex];
+        $data['today_move_minutes'] = $move_minutes[$lastIndex];
+        $data['today_distances'] = $distances[$lastIndex];
+        $data['today_calories'] = $calories[$lastIndex];
+
         $this->fitData = $data;
     }
 
@@ -332,6 +344,7 @@ class HomeController extends Controller
             if ($response->successful()) {
                 $data = $response->json();
                 $quote = $data[0]['quote'];
+                $author = $data[0]['author'];
             }
 
             return $quote;
