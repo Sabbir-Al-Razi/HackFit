@@ -10,7 +10,8 @@
     </div>
     <!-- /.box-header -->
 
-    <form action="http://localhost:8000/admin/time-slots" class="form-horizontal">
+    <form action="{{route(config('admin.route.prefix').'.bmiCalculate')}}" method="post" class="form-horizontal">
+        @csrf
         <div class="box-body">
             <div class="fields-group">
 
@@ -21,13 +22,13 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <div class="input-group">
-                                        <input type="text" id="height_feet" name="height_feet" class="form-control">
+                                        <input type="number" id="height_feet" name="height_feet" class="form-control" require="">
                                         <span class="input-group-addon">feet</span>
                                     </div>
                                 </div>
                                 <div class="col-xs-6" style="padding-left: 0;">
                                     <div class="input-group">
-                                        <input type="text" id="height_inches" name="height_inches" class="form-control">
+                                        <input type="number" id="height_inches" name="height_inches" class="form-control" require="">
                                         <span class="input-group-addon">inches</span>
                                     </div>
                                 </div>
@@ -39,7 +40,7 @@
                         <label for="weight" class="col-sm-2 control-label">Weight</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input type="text" id="weight" name="weight" class="form-control">
+                                <input type="number" id="weight" name="weight" class="form-control" require="">
                                 <span class="input-group-addon">kg</span>
                             </div>
                         </div>
