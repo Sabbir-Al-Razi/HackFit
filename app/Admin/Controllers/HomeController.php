@@ -50,6 +50,11 @@ class HomeController extends Controller
             $this->getGoogleFitData($googleToken);
 
             $content->row(function (Row $row) {
+
+                $row->column(12, function (Column $column) {
+                    $column->append('<div class="box"><p>'.$this->quotes().'</p></div>');
+                });
+
                 $row->column(4, function (Column $column) {
                     $column->append($this->step());
                 });
@@ -309,6 +314,30 @@ class HomeController extends Controller
         }
 
         return redirect()->route(config('admin.route.prefix').'.home');
+    }
+
+
+    // motivation Quotes
+
+    public function quotes()
+    {
+        try {
+            $response = Http::withHeaders([
+                'X-Api-Key' => 'H5eCGlzOo5lDB73CuEPVMA==5I3Zfj4xFhCVysz9'
+            ])->get('https://api.api-ninjas.com/v1/quotes', [
+                'category' => 'fitness'
+            ]);
+
+            $quote = "";
+            if ($response->successful()) {
+                $data = $response->json();
+                $quote = $data[0]['quote'];
+            }
+
+            return $quote;
+        } catch (\Throwable $th) {
+            return "";
+        }
     }
 
 }
