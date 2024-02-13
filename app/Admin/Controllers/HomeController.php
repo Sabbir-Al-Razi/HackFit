@@ -10,7 +10,7 @@ use Encore\Admin\Layout\Row;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use DateTime;
 use DateTimeZone;
 use DateInterval;
@@ -57,9 +57,12 @@ class HomeController extends Controller
 
             $content->row(function (Row $row) {
 
-                $row->column(12, function (Column $column) {
-                    $column->append('<div class="box"><p>'.$this->quotes().'</p></div>');
-                });
+                $quoteData = $this->quotes();
+                if ($quoteData && isset($quoteData['quote'])) {
+                    $row->column(12, function (Column $column) use ($quoteData) {
+                        $column->append('<div class="box"><p><q>'.$quoteData['quote'].'</q> - '.$quoteData['author'].'</p></div>');
+                    });
+                }
 
                 $row->column(4, function (Column $column) {
                     $column->append($this->step());
@@ -343,13 +346,12 @@ class HomeController extends Controller
             $quote = "";
             if ($response->successful()) {
                 $data = $response->json();
-                $quote = $data[0]['quote'];
-                $author = $data[0]['author'];
+                return $data[0];
             }
 
             return $quote;
         } catch (\Throwable $th) {
-            return "";
+            return [];
         }
     }
 

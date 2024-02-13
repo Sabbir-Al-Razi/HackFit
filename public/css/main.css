@@ -1,0 +1,12 @@
+.box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+    font-style: italic;
+}
+
+.box p {
+    margin: 0;
+}
