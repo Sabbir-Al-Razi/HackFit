@@ -1,7 +1,6 @@
 <div class="box box-info" style="min-height: 410px;">
     <div class="box-header with-border">
         <h3 class="box-title">Result</h3>
-
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
             </button>
@@ -11,7 +10,6 @@
 
     <!-- /.box-header -->
     <div class="box-body">
-
         <div class="col-md-12">
             <div class="row justify-content-center">
                 <div class="card">
@@ -27,7 +25,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <!-- /.box-body -->
 </div>
