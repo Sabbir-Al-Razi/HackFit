@@ -1,4 +1,4 @@
-.box {
+.boxQuote {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
@@ -7,6 +7,6 @@
     font-style: italic;
 }
 
-.box p {
+.boxQuote p {
     margin: 0;
 }

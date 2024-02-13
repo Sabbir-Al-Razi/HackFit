@@ -60,7 +60,7 @@ class HomeController extends Controller
                 $quoteData = $this->quotes();
                 if ($quoteData && isset($quoteData['quote'])) {
                     $row->column(12, function (Column $column) use ($quoteData) {
-                        $column->append('<div class="box"><p><q>'.$quoteData['quote'].'</q> - '.$quoteData['author'].'</p></div>');
+                        $column->append('<div class="box boxQuote"><p><q>'.$quoteData['quote'].'</q> - '.$quoteData['author'].'</p></div>');
                     });
                 }
 
