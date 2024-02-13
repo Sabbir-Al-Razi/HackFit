@@ -58,9 +58,9 @@ class HomeController extends Controller
             $content->row(function (Row $row) {
 
                 $quoteData = $this->quotes();
-                if ($quoteData && isset($quoteData['quote'])) {
+                if ($quoteData && isset($quoteData['quote']) && isset($quoteData['author'])) {
                     $row->column(12, function (Column $column) use ($quoteData) {
-                        $column->append('<div class="box boxQuote"><p><q>'.$quoteData['quote'].'</q> - '.$quoteData['author'].'</p></div>');
+                        $column->append(view('admin.dashboard.quote', $quoteData));
                     });
                 }
 
