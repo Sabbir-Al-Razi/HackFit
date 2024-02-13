@@ -31,11 +31,11 @@ class UserMealController extends AdminController
         $users = $userModel::pluck('name', 'id')->toArray();
         $meals = Meal::where('status', '1')->pluck("name", "id")->toArray();
 
-        $grid->column('id', __('Id'));
-        $grid->column('user_id', __('User'))
-        ->display(function ($val) use($users) {
-            return isset($users[$val]) ? '<a href="' . admin_url('auth/users/' . $this->user_id) . '"><strong> '. $users[$val] .'</strong></a>' : '';
-        });
+        // $grid->column('id', __('Id'));
+        // $grid->column('user_id', __('User'))
+        // ->display(function ($val) use($users) {
+        //     return isset($users[$val]) ? '<a href="' . admin_url('auth/users/' . $this->user_id) . '"><strong> '. $users[$val] .'</strong></a>' : '';
+        // });
 
         $grid->column('meals', __('Meals'))
         ->display(function ($val) use ($meals) {
@@ -80,8 +80,8 @@ class UserMealController extends AdminController
     {
         $show = new Show(UserMeal::findOrFail($id));
 
-        $show->field('id', __('Id'));
-        $show->field('user_id', __('User id'));
+        // $show->field('id', __('Id'));
+        // $show->field('user_id', __('User id'));
         $show->field('meals', __('Meals'))->json();
         $show->field('calories_intake', __('Calories intake'));
         $show->field('status', __('Status'));
@@ -102,11 +102,18 @@ class UserMealController extends AdminController
         $form = new Form(new UserMeal());
         $userModel = config('admin.database.users_model');
 
+        // $form->hidden('user_id')->default(auth()->user()->id)
+        // ->creationRules(['required', "unique:user_meals"])
+        // ->updateRules(['required', "unique:user_meals,user_id,{{id}}"]);
+
         $form->select('user_id', __('User'))
         ->options(function () use($userModel) {
             return $userModel::pluck("name", "id");
         })
-        ->rules("required");
+        ->readOnly()
+        ->default(auth()->user()->id)
+        ->creationRules(['required', "unique:user_meals"])
+        ->updateRules(['required', "unique:user_meals,user_id,{{id}}"]);
         
         $form->multipleSelect('meals', __('Meals'))
         ->options(Meal::where('status', '1')->pluck("name", "id"))

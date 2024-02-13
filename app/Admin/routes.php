@@ -24,4 +24,5 @@ Route::group([
     $router->resource('auth/users', CustomUserController::class);
     $router->resource('gd', GeneralEducationController::class);
     $router->resource('plan-order', PlanOrderController::class);
+    $router->resource('personalized-diet-plans', PersonalizedDietController::class);
 });
