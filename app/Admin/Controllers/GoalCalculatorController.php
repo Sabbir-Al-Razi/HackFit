@@ -70,7 +70,7 @@ class GoalCalculatorController extends Controller
 
         $bmr = $this->calculateBMR($currentWeight, $height, $age);
 
-        $activityLevel = "lightly_active";// sedentary, lightly_active, moderately_active, very_active
+        $activityLevel = $request->activity_level; // sedentary, lightly_active, moderately_active, very_active
         $tdee = $this->calculateTDEE($bmr, $activityLevel);
 
         $caloricChangePerWeek = ($targetWeight - $currentWeight) / $timeframe;

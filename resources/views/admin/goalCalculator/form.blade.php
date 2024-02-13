@@ -90,6 +90,23 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="weight" class="col-sm-2 control-label">Activity</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <select name="activity_level" id="activity_level" class="form-control">
+                                            <option value="sedentary" {!! (@$inputData['activity_level'] == "sedentary") ? "selected" : "" !!}>Sedentary</option>
+                                            <option value="lightly_active" {!! (@$inputData['activity_level'] == "lightly_active") ? "selected" : "" !!}>Lightly Active</option>
+                                            <option value="moderately_active" {!! (@$inputData['activity_level'] == "moderately_active") ? "selected" : "" !!}>Moderately Active</option>
+                                            <option value="very_active" {!! (@$inputData['activity_level'] == "very_active") ? "selected" : "" !!}>Very Active</option>
+                                          </select>
+                                        <span class="input-group-addon">Activity</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-9">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-calculator"></i> Calculate</button>
                                 </div>
