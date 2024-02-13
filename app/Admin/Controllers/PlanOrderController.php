@@ -2,75 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\PlanOrder;
-use App\Http\Controllers\Controller;
-use Encore\Admin\Controllers\HasResourceActions;
+use App\Models\PlanOrderFinal;
+use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
-use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class PlanOrderController extends Controller
+class PlanOrderController extends AdminController
 {
-    use HasResourceActions;
-
     /**
-     * Index interface.
+     * Title for current resource.
      *
-     * @param Content $content
-     * @return Content
+     * @var string
      */
-    public function index(Content $content)
-    {
-        return $content
-            ->header(trans('Plan Order'))
-            ->description(trans('PO...'))
-            ->body($this->grid());
-    }
-
-    /**
-     * Show interface.
-     *
-     * @param mixed $id
-     * @param Content $content
-     * @return Content
-     */
-    public function show($id, Content $content)
-    {
-        return $content
-            ->header(trans('Plan Order'))
-            ->description(trans('PO...'))
-            ->body($this->detail($id));
-    }
-
-    /**
-     * Edit interface.
-     *
-     * @param mixed $id
-     * @param Content $content
-     * @return Content
-     */
-    public function edit($id, Content $content)
-    {
-        return $content
-            ->header(trans('admin.edit'))
-            ->description(trans('admin.description'))
-            ->body($this->form()->edit($id));
-    }
-
-    /**
-     * Create interface.
-     *
-     * @param Content $content
-     * @return Content
-     */
-    public function create(Content $content)
-    {
-        return $content
-            ->header(trans('admin.create'))
-            ->description(trans('admin.description'))
-            ->body($this->form());
-    }
+    protected $title = 'Plan & Order';
 
     /**
      * Make a grid builder.
@@ -79,17 +24,26 @@ class PlanOrderController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new PlanOrder);
+        $grid = new Grid(new PlanOrderFinal());
 
-        // $grid->id('ID');
-        $grid->plan_name('plan_name');
-        $grid->workout_name('workout_name');
-        $grid->workout_plan('workout_plan');
-        $grid->timing('timing');
-        $grid->start_time('start_time');
-        $grid->end_time('end_time');
-        $grid->created_at(trans('admin.created_at'));
-        $grid->updated_at(trans('admin.updated_at'));
+        $grid->column('id', __('Id'));
+        $grid->column('plan_name', __('Plan name'));
+        $grid->column('description', __('Description'))
+        ->display(function ($val) {
+            return str_replace('||', '<br>', $val);
+        });
+
+        $grid->column('created_at', __('Created at'))
+        ->display(function($val) {
+            return !empty($val) ? date('Y-m-d H:i:s', strtotime($val)) : null;
+        });
+
+
+        $grid->column('updated_at', __('Updated at'))
+        ->display(function($val) {
+            return !empty($val) ? date('Y-m-d H:i:s', strtotime($val)) : null;
+        });
+
 
         return $grid;
     }
@@ -102,17 +56,17 @@ class PlanOrderController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(PlanOrder::findOrFail($id));
+        $show = new Show(PlanOrderFinal::findOrFail($id));
 
-        // $show->id('ID');
-        $show->plan_name('plan_name');
-        $show->workout_name('workout_name');
-        $show->workout_plan('workout_plan');
-        $show->timing('timing');
-        $show->start_time('start_time');
-        $show->end_time('end_time');
-        $show->created_at(trans('admin.created_at'));
-        $show->updated_at(trans('admin.updated_at'));
+        $show->field('id', __('Id'));
+        $show->field('plan_name', __('Plan name'));
+        // $show->field('description', __('Description'));
+        $show->description()->as(function ($val) {
+            return str_replace('||', ', ', $val);
+        });
+
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
 
         return $show;
     }
@@ -124,15 +78,10 @@ class PlanOrderController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new PlanOrder);
+        $form = new Form(new PlanOrderFinal());
 
-        $form->text('plan_name', 'Plan Name');
-        $form->text('workout_name', 'Workout Name');
-        $form->text('workout_plan', 'Workout Plan');
-        $form->select('timing', 'Timing')->options(['hourly' => 'Hourly', 'daily' => 'Daily', 'daily twice' => 'Daily Twice', 'weekly' => 'Weekly']);
-        $form->time('start_time', 'Start Time');
-        $form->time('end_time', 'End Time');
-
+        $form->text('plan_name', __('Plan name'));
+        $form->textarea('description', __('Description'));
 
         return $form;
     }
