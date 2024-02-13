@@ -12,7 +12,7 @@
     <div class="box-body">
         <div class="col-md-12">
             <div class="row justify-content-center">
-                <div class="card">
+                <div class="card" style="padding: 0 20px;">
                     <h3 class="card-header text-center">Your Target</h3>
                     <hr>
                     <div class="card-body">
