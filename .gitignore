@@ -14,24 +14,3 @@ Homestead.yaml
 composer.lock
 webpack.mix.js
 
-*.txt
-*.tmp
-*.swp
-*.bak
-*.log
-*.pdf
-*.csv
-*.xls
-*.xlsx
-*.doc
-*.docx
-*.ppt
-*.pptx
-
-.sass-cache/
-*.css.map
-*.sass.map
-*.scss.map
-
-todo.todo
-

@@ -25,4 +25,8 @@ Route::group([
     $router->resource('gd', GeneralEducationController::class);
     $router->resource('plan-order', PlanOrderController::class);
     $router->resource('personalized-diet-plans', PersonalizedDietController::class);
+    $router->get('goal-calculator', 'GoalCalculatorController@index');
+    $router->post('goal-calculator', 'GoalCalculatorController@goalCalculate')->name('goalCalculate');
+
+
 });

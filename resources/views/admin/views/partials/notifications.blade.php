@@ -17,7 +17,7 @@
                 @foreach($planOrders as $planOrder)
                     <li>
                         <a href="#" class="notification-item" data-toggle="modal" data-target="#planOrderModal{{$planOrder->id}}">
-                            <i class="fa fa-users text-aqua"></i> {{ $planOrder->plan_name }}: {{ $planOrder->workout_name }}
+                            <i class="fa fa-users text-aqua"></i> {{ $planOrder->plan_name }}
                         </a>
                     </li>
                 @endforeach
@@ -37,10 +37,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Workout Plan: {{ $planOrder->workout_plan }}</p>
-                <p>Timing: {{ $planOrder->timing }}</p>
-                <p>Start Time: {{ $planOrder->start_time }}</p>
-                <p>End Time: {{ $planOrder->end_time }}</p>
+                <p>{!! str_replace('||', '<br>', $planOrder->description) !!}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
