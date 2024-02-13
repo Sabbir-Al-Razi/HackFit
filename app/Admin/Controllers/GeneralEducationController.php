@@ -95,13 +95,13 @@ class GeneralEducationController extends Controller
         $grid->medicare('medicare')->display(function ($medicare) {
             return \Illuminate\Support\Str::limit($medicare, 50);
         });
-        $grid->column('status', __('Status'))->display(function($val) {
-            if ($val == 1) {
-                return '<span class="label label-success">Active</span>';
-            } else {
-                return '<span class="label label-danger">Inactive</span>';
-            }
-        });
+        // $grid->column('status', __('Status'))->display(function($val) {
+        //     if ($val == 1) {
+        //         return '<span class="label label-success">Active</span>';
+        //     } else {
+        //         return '<span class="label label-danger">Inactive</span>';
+        //     }
+        // });
         $grid->column('image', __('Image'))->image(asset('/storage'), 50, 50);
 
         $grid->column('created_at', __('Created at'))->display(function($val) {
@@ -126,11 +126,11 @@ class GeneralEducationController extends Controller
     {
         $show = new Show(GeneralEducation::findOrFail($id));
 
-        $show->title('title');
-        $show->overview('overview');
-        $show->details('details');
-        $show->home_care('home_care');
-        $show->medicare('medicare');
+        $show->title('Title');
+        $show->overview('Overview');
+        $show->details('Details');
+        $show->home_care('Home Care');
+        $show->medicare('Medicare');
         $show->image()->image(asset('storage'). '/');
 
 
@@ -146,9 +146,9 @@ class GeneralEducationController extends Controller
     {
         $form = new Form(new GeneralEducation);
 
-        $form->text('title', 'title')->rules("required");
-        $form->textarea('overview', 'overview')->rules("required");
-        $form->textarea('details', 'details');
+        $form->text('title', 'Title')->rules("required");
+        $form->textarea('overview', 'Overview')->rules("required");
+        $form->textarea('details', 'Details');
         $form->textarea('home_care', __('Home Care'));
         $form->textarea('medicare', 'medicare');
 
