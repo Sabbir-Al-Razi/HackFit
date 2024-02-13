@@ -9,6 +9,7 @@ use Encore\Admin\Show;
 use App\Models\FoodItem;
 use App\Models\UserMeal;
 use Encore\Admin\Controllers\AdminController;
+use Illuminate\Support\Facades\Auth;
 
 class UserMealController extends AdminController
 {
@@ -17,7 +18,7 @@ class UserMealController extends AdminController
      *
      * @var string
      */
-    protected $title = 'UserMeal';
+    protected $title = 'My Meals';
 
     /**
      * Make a grid builder.
@@ -27,6 +28,8 @@ class UserMealController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new UserMeal());
+        $grid->model()->where('user_id', Auth::user()->id);
+
         $userModel = config('admin.database.users_model');
         $users = $userModel::pluck('name', 'id')->toArray();
         $meals = Meal::where('status', '1')->pluck("name", "id")->toArray();
