@@ -126,16 +126,13 @@ class GeneralEducationController extends Controller
     {
         $show = new Show(GeneralEducation::findOrFail($id));
 
-        // $show->id('ID');
         $show->title('title');
         $show->overview('overview');
         $show->details('details');
         $show->home_care('home_care');
         $show->medicare('medicare');
         $show->image()->image(asset('storage'). '/');
-        $show->status('status');
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+
 
         return $show;
     }
