@@ -67,14 +67,14 @@
 
                     <div class="col-xs-12">
                         <div class="col-sm-offset-1 col-sm-10">
-                            <h4 style="font-weight: bold;margin-bottom: 5px;">BMI = {{$bmi>0?$bmi:'0.00'}} kg/m<sup>2</sup> @if($bmi>0)(<span style="color: {{$class=='Normal'?'green':'red'}}">{{$class}}</span>)@endif</h4>
-                            <ul style="margin-left:8px;padding-left:8px;">
+                            <h4 style="font-weight: bold;margin-bottom: 5px;margin-top: 2px;">BMI = {{$bmi>0?$bmi:'0.00'}} kg/m<sup>2</sup> @if($bmi>0)(<span style="color: {{$class=='Normal'?'green':'red'}}">{{$class}}</span>)@endif</h4>
+                            <ul style="margin-left:8px;padding-left:8px;font-size: 16px;margin-bottom: 8px;">
                                 <li>Healthy BMI range: @if($bmi>0)18.5 kg/m<sup>2</sup> - 25 kg/m<sup>2</sup> @endif</li>
                                 <li>Healthy weight for the height: @if($bmi>0){{$healthy_weight_min}} kg - {{$healthy_weight_max}} kg @endif</li>
                                 <li>BMI Prime: @if($bmi>0){{$bmi_prime}} @endif</li>
                                 <li>Ponderal Index: @if($bmi>0){{$ponderal_index}} kg/m<sup>3</sup> @endif</li>
-                                @if($bmi>0 && ($lose_weight>0 || $gain_weight>0))<li style="color: red;">@if($lose_weight>0)Lose {{$lose_weight}} kg to reach a BMI of 25 kg/m<sup>2</sup>.@elseif($gain_weight>0)Gain {{$gain_weight}} kg to reach a BMI of 18.5 kg/m<sup>2</sup>. @endif</li>@endif
                             </ul>
+                            @if($bmi>0)<h3 style="{{($lose_weight>0 || $gain_weight>0)?'color:red;':'color:green;'}} font-weight: bold;font-size: 20px;margin: 0;border: 1px solid #ccc;padding: 8px;width: 100%;text-align: center;">@if($lose_weight>0)Lose {{$lose_weight}} kg to reach a BMI of 25 kg/m<sup>2</sup>@elseif($gain_weight>0)Gain {{$gain_weight}} kg to reach a BMI of 18.5 kg/m<sup>2</sup>@else{{'Congratulations, Your BMI is normal'}}@endif</h3>@endif
                         </div>
                     </div>
                 </div>
